@@ -1,10 +1,10 @@
 name: ZAIKO Ticket Monitor
 
 on:
-  schedule:
-    # 5分おきに自動実行
-    - cron: '*/5 * * * *'
-  workflow_dispatch: # 手動テスト実行用
+  # schedule:
+  #   # 5分おきに自動実行（cron-job.orgに任せるため無効化）
+  #   - cron: '*/5 * * * *'
+  workflow_dispatch: # 手動・外部API（cron-job.org）からの実行用
 
 jobs:
   monitor:
