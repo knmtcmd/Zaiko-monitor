@@ -83,4 +83,7 @@ def check_ticket():
             browser.close()
 
 if __name__ == "__main__":
+    # ▼ テスト用に追加（確認後に削除）
+    send_discord_notification("✅ テスト通知：ZAIKO監視スクリプトから正常に送信できています！")
+
     check_ticket()
