@@ -1,10 +1,7 @@
 name: ZAIKO Ticket Monitor
 
 on:
-  # schedule:
-  #   # 5分おきに自動実行（cron-job.orgに任せるため無効化）
-  #   - cron: '*/5 * * * *'
-  workflow_dispatch: # 手動・外部API（cron-job.org）からの実行用
+  workflow_dispatch: # 手動・cron-job.orgからの実行用
 
 jobs:
   monitor:
@@ -23,19 +20,13 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Cache Playwright browsers
-        id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('requirements.txt') }}
 
       - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: playwright install --with-deps chromium
-
-      - name: Install Playwright system dependencies (if cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: playwright install-deps chromium
 
       - name: Run monitor script
         env:
